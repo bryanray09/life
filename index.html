@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Tracker to 50</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-rows: repeat(52, 20px);
+      grid-auto-flow: column;
+      gap: 6px;
+      margin-top: 20px;
+      overflow-x: auto;
+      max-width: 95vw;
+    }
+    .square {
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+    .filled {
+      background-color: #4caf50;
+      border-color: #388e3c;
+      color: white;
+    }
+    .birthday {
+      background-color: #2196f3;
+      color: white;
+      border-color: #1565c0;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bryan's Life Tracker – Until Age 50</h1>
+  <div class="grid" id="squareGrid"></div>
+  <div class="footer" id="status"></div>
+
+  <script>
+    const grid = document.getElementById("squareGrid");
+    const status = document.getElementById("status");
+
+    const birthday = new Date("1991-08-09");
+    const startDate = new Date();
+    const endDate = new Date("2041-08-09"); // 50th birthday
+    const totalWeeks = Math.floor((endDate - birthday) / (1000 * 60 * 60 * 24 * 7));
+    const weeksPassed = Math.floor((new Date() - birthday) / (1000 * 60 * 60 * 24 * 7));
+
+    for (let i = 0; i < totalWeeks; i++) {
+      const square = document.createElement("div");
+      square.classList.add("square");
+      if (i < weeksPassed) square.classList.add("filled");
+
+      // Add birthday marker every 52 weeks
+      if (i % 52 === 0) {
+        const age = 0 + Math.floor(i / 52);
+        square.textContent =  age.toString();
+        square.classList.add("birthday");
+      }
+
+      grid.appendChild(square);
+    }
+
+    status.innerText = `${weeksPassed} week(s) passed out of ${totalWeeks} weeks until age 50`;
+  </script>
+</body>
+</html>
