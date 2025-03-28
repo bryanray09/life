@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryan's Week Tracker (2025–2041)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(52, 16px);
+      grid-auto-rows: 16px;
+      gap: 4px;
+      margin-top: 10px;
+    }
+    .square {
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+    .birthday {
+      background-color: #2196f3;
+      color: white;
+      border-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bryan's Week Tracker – 2025 to 2041</h1>
+  <div class="grid" id="squareGrid"></div>
+
+  <script>
+    const grid = document.getElementById("squareGrid");
+
+    const startYear = 2025;
+    const endYear = 2041;
+    const weeksPerYear = 52;
+    const birthdayMonth = 7; // August (0-indexed)
+    const birthdayDay = 9;
+    let age = 34;
+
+    for (let year = startYear; year <= endYear; year++) {
+      for (let week = 0; week < weeksPerYear; week++) {
+        const square = document.createElement("div");
+        square.classList.add("square");
+
+        // Check if this week includes Bryan's birthday
+        const firstDayOfYear = new Date(year, 0, 1);
+        const weekStart = new Date(firstDayOfYear.getTime() + week * 7 * 24 * 60 * 60 * 1000);
+        const birthdayThisYear = new Date(year, birthdayMonth, birthdayDay);
+
+        if (weekStart <= birthdayThisYear && birthdayThisYear < new Date(weekStart.getTime() + 7 * 24 * 60 * 60 * 1000)) {
+          square.classList.add("birthday");
+          square.textContent = age.toString();
+          age++;
+        }
+
+        grid.appendChild(square);
+      }
+    }
+  </script>
+</body>
+</html>
